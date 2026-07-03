@@ -24,12 +24,12 @@ result = system.retrieve("Python")
 
 | Doc | Content |
 |-----|---------|
-| [Technical Spec](docs/technical.md) | Architecture, core concepts, formulas |
-| [Usage Guide](docs/usage.md) | Installation, config, examples |
-| [API Reference](docs/api-reference.md) | All classes and methods |
-| [Tuning Guide](docs/tuning.md) | Hyperparameters explained |
-| [Demo App](docs/demo.md) | TUI conversation demo |
-| [中文文档](README.md) | Chinese documentation |
+| [Technical Spec](technical.en.md) | Architecture, core concepts, formulas |
+| [Usage Guide](usage.en.md) | Installation, config, examples |
+| [API Reference](api-reference.en.md) | All classes and methods |
+| [Tuning Guide](tuning.en.md) | Hyperparameters explained |
+| [Demo App](demo.en.md) | TUI conversation demo |
+| [中文文档](../README.md) | Chinese documentation |
 
 ## Project Structure
 
@@ -38,7 +38,7 @@ knot/
 ├── graph.py          # Graph structure (node/edge CRUD)
 ├── retrieval.py      # Retrieval phase (RWR, seed selection)
 ├── consolidation.py  # Consolidation phase (edge decision tree, bias drift)
-├── knot/memory_system.py  # Main orchestrator
+├── memory_system.py  # Main orchestrator
 ├── embedding.py      # Embedding interface (Qwen3 / Dummy)
 ├── config.py         # Hyperparameters
 └── types.py          # Data classes
@@ -59,7 +59,7 @@ For commercial use, contact aa20170612@outlook.com.
 
 Any form of contribution is welcome:
 
-- Submit [Issues](https://github.com/your-repo/issues) for bugs or suggestions
+- Submit [Issues](https://github.com/IjalG/Knot/issues) for bugs or suggestions
 - Submit PRs for code or documentation improvements
 - Tune parameters for different embedding models
 - Develop GPU-accelerated versions for faster embedding computation
