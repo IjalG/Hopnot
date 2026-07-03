@@ -19,7 +19,7 @@
 | $\kappa$ | 三角闭合折扣 | 0.50 | 整理 |
 | $L3_{\text{min}}$ | L3 下限 | 0.05 | 整理 |
 
-完整参数表见 `knot/config.py`。
+完整参数表见 `hopnot/config.py`。
 
 ## Qwen3-Embedding 适配
 

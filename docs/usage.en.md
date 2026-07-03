@@ -4,8 +4,8 @@
 
 ```bash
 pip install torch transformers sentence-transformers modelscope
-git clone git@github.com:IjalG/Knot.git
-cd Knot
+git clone git@github.com:IjalG/hopnot.git
+cd hopnot
 ```
 
 ## Basic Usage
@@ -13,7 +13,7 @@ cd Knot
 ### Initialize
 
 ```python
-from knot import HippocampusMemorySystem
+from hopnot import HippocampusMemorySystem
 
 # Uses DummyEmbedding (random vectors, for testing)
 system = HippocampusMemorySystem()
@@ -22,7 +22,7 @@ system = HippocampusMemorySystem()
 ### Use Qwen3-Embedding Model
 
 ```python
-from knot import Qwen3Embedding, HippocampusMemorySystem, get_default_config
+from hopnot import Qwen3Embedding, HippocampusMemorySystem, get_default_config
 
 config = get_default_config()
 config.recall_threshold = 0.55
@@ -79,7 +79,7 @@ output = system.process_query(
 Auto-downloads from ModelScope: https://modelscope.cn/models/Qwen/Qwen3-Embedding-0.6B
 
 ```python
-from knot import Qwen3Embedding
+from hopnot import Qwen3Embedding
 e = Qwen3Embedding(device="cpu")    # or "cuda"
 e.embed("artificial intelligence")   # → 1024-dim vector
 e.embed_batch(["A", "B"])            # batch embedding
@@ -88,7 +88,7 @@ e.embed_batch(["A", "B"])            # batch embedding
 ### DummyEmbedding (testing)
 
 ```python
-from knot import DummyEmbedding
+from hopnot import DummyEmbedding
 e = DummyEmbedding(dim=64, seed=42)
 ```
 
@@ -97,7 +97,7 @@ e = DummyEmbedding(dim=64, seed=42)
 Inherit `BaseEmbedding`:
 
 ```python
-from knot import BaseEmbedding
+from hopnot import BaseEmbedding
 
 class MyEmbedding(BaseEmbedding):
     @property

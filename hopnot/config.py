@@ -8,7 +8,7 @@ from typing import Optional
 
 @dataclass
 class HippocampusConfig:
-    """Knot 超参数配置。"""
+    """hopnot 超参数配置。"""
 
     # ── 检索阶段 ──────────────────────────────────────────────────
     # 种子选取

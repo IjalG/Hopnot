@@ -1,8 +1,8 @@
-# Knot
+# hopnot
 
 **实验性项目** — 纯图结构的动态记忆模拟系统（检索 + 整理闭环）。
 
-Knot 用有向加权图模拟人脑的记忆读取与巩固，不依赖任何神经网络梯度训练。
+hopnot 用有向加权图模拟人脑的记忆读取与巩固，不依赖任何神经网络梯度训练。
 
 > **⚠️ 实验性声明**
 >
@@ -13,7 +13,7 @@ Knot 用有向加权图模拟人脑的记忆读取与巩固，不依赖任何神
 ## 一行起步
 
 ```python
-from knot import HippocampusMemorySystem
+from hopnot import HippocampusMemorySystem
 
 system = HippocampusMemorySystem()
 system.consolidate("(Python, 是, 编程语言)", query="初始化")
@@ -34,11 +34,11 @@ result = system.retrieve("Python")
 ## 项目结构
 
 ```
-knot/                 # 核心库
+hopnot/                 # 核心库
 ├── graph.py          # 图结构（节点/边 CRUD）
 ├── retrieval.py      # 检索阶段（RWR、种子选取）
 ├── consolidation.py  # 整理阶段（边决策树、偏置漂移）
-├── knot/memory_system.py  # 主协调器
+├── hopnot/memory_system.py  # 主协调器
 ├── embedding.py      # 嵌入接口（Qwen3 / Dummy）
 ├── config.py         # 超参数
 └── types.py          # 数据类

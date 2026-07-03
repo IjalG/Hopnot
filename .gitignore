@@ -1,6 +1,9 @@
 # 模型缓存（从 ModelScope 自动下载）
 .model_cache/
 
+# Reasonix 会话元数据
+.reasonix/
+
 # Python
 __pycache__/
 *.pyc

@@ -1,8 +1,8 @@
-"""Knot —— TUI 对话演示。
+"""hopnot —— TUI 对话演示。
 
 功能：
 - 保存最近 3 轮对话作为短期上下文（滑动窗口）
-- 长期记忆使用Knot自动提取+存储
+- 长期记忆使用hopnot自动提取+存储
 - 可选 LLM API 调用（OpenAI 兼容接口）
 
 配置（环境变量或 .env 文件）：
@@ -280,13 +280,13 @@ class DemoApp:
         # 初始化 LLM 客户端
         self.llm = LLMClient(config)
 
-        # 初始化Knot
+        # 初始化hopnot
         sys.stdout.write(f"{Colors.DIM}Loading memory system...{Colors.RESET}")
         sys.stdout.flush()
         t0 = time.time()
 
-        from knot import HippocampusMemorySystem, get_default_config
-        from knot.embedding import Qwen3Embedding, DummyEmbedding
+        from hopnot import HippocampusMemorySystem, get_default_config
+        from hopnot.embedding import Qwen3Embedding, DummyEmbedding
 
         mem_cfg = get_default_config()
         mem_cfg.recall_threshold = config.recall_threshold
@@ -457,7 +457,7 @@ class DemoApp:
         # 标题
         print()
         print(Colors.BOLD + " ╔══════════════════════════════════════════╗" + Colors.RESET)
-        print(Colors.BOLD + " ║    Knot · 对话演示 v1.7     ║" + Colors.RESET)
+        print(Colors.BOLD + " ║    hopnot · 对话演示 v1.7     ║" + Colors.RESET)
         print(Colors.BOLD + " ╚══════════════════════════════════════════╝" + Colors.RESET)
         print()
         print(f"  {Colors.DIM}嵌入模型:{Colors.RESET} {Colors.CYAN}{self._embedding_name}{Colors.RESET}")
@@ -474,7 +474,7 @@ class DemoApp:
         # 无 API 时注入示例知识
         if not self.llm.available:
             self.system.consolidate(
-                "(Knot, 是, 纯图结构记忆模拟)\n"
+                "(hopnot, 是, 纯图结构记忆模拟)\n"
                 "(检索阶段, 包含, 种子选取)\n"
                 "(检索阶段, 包含, 随机游走扩散)\n"
                 "(检索阶段, 包含, 输出截断)\n"

@@ -1,4 +1,4 @@
-"""主协调器 —— Knot完整闭环。
+"""主协调器 —— hopnot完整闭环。
 
 实现规范（v1.7）§4.1 完整闭环流程图：
 
@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 
 
 class HippocampusMemorySystem:
-    """Knot主协调器。
+    """hopnot主协调器。
 
     封装检索与整理阶段的完整闭环。典型用法：
 

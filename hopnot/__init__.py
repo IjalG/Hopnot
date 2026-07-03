@@ -1,4 +1,4 @@
-"""Knot —— Hippocampus Memory System.
+"""hopnot —— Hippocampus Memory System.
 
 非神经网络、纯图结构的动态记忆模拟系统（检索 + 整理闭环）。
 版本: v1.7

@@ -1,8 +1,8 @@
-# Knot
+# hopnot
 
 **Experimental** — A dynamic memory simulation system using pure graph structures (retrieval + consolidation).
 
-Knot simulates the brain's memory reading and consolidation using a directed weighted graph, without any neural network gradient training.
+hopnot simulates the brain's memory reading and consolidation using a directed weighted graph, without any neural network gradient training.
 
 > **⚠️ Experimental Notice**
 >
@@ -13,7 +13,7 @@ Knot simulates the brain's memory reading and consolidation using a directed wei
 ## Quick Start
 
 ```python
-from knot import HippocampusMemorySystem
+from hopnot import HippocampusMemorySystem
 
 system = HippocampusMemorySystem()
 system.consolidate("(Python, is, programming language)", query="init")
@@ -34,7 +34,7 @@ result = system.retrieve("Python")
 ## Project Structure
 
 ```
-knot/
+hopnot/
 ├── graph.py          # Graph structure (node/edge CRUD)
 ├── retrieval.py      # Retrieval phase (RWR, seed selection)
 ├── consolidation.py  # Consolidation phase (edge decision tree, bias drift)
@@ -59,7 +59,7 @@ For commercial use, contact aa20170612@outlook.com.
 
 Any form of contribution is welcome:
 
-- Submit [Issues](https://github.com/IjalG/Knot/issues) for bugs or suggestions
+- Submit [Issues](https://github.com/IjalG/hopnot/issues) for bugs or suggestions
 - Submit PRs for code or documentation improvements
 - Tune parameters for different embedding models
 - Develop GPU-accelerated versions for faster embedding computation

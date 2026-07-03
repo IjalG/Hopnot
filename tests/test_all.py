@@ -1,4 +1,4 @@
-"""Knot —— 综合测试套件。
+"""hopnot —— 综合测试套件。
 
 覆盖：
 1. 核心数据结构（节点/边 CRUD）
@@ -14,13 +14,13 @@ import time
 import unittest
 from typing import Any
 
-from knot.config import HippocampusConfig, get_default_config
-from knot.embedding import DummyEmbedding
-from knot.graph import MemoryGraph
-from knot.retrieval import MemoryRetrieval, RetrievalResult
-from knot.consolidation import MemoryConsolidation
-from knot.memory_system import HippocampusMemorySystem
-from knot.types import (
+from hopnot.config import HippocampusConfig, get_default_config
+from hopnot.embedding import DummyEmbedding
+from hopnot.graph import MemoryGraph
+from hopnot.retrieval import MemoryRetrieval, RetrievalResult
+from hopnot.consolidation import MemoryConsolidation
+from hopnot.memory_system import HippocampusMemorySystem
+from hopnot.types import (
     Edge,
     EdgeOrigin,
     EdgeType,

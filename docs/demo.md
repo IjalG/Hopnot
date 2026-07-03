@@ -1,6 +1,6 @@
 # 演示程序
 
-TUI 对话演示，展示Knot的完整工作流程。
+TUI 对话演示，展示hopnot的完整工作流程。
 
 ## 快速开始
 
@@ -39,7 +39,7 @@ MODEL_NAME=deepseek-chat
 | **短期记忆** | 自动保存最近 3 轮对话，超出丢弃最早 |
 | **长期记忆** | LLM 回复中的 `<main_point>` 三元组自动提取存入图 |
 | **LLM 调用** | 基于 BASE_URL/API_KEY/MODEL_NAME 调用 AI |
-| **本地模式** | 无 API 时自动运行，展示Knot功能 |
+| **本地模式** | 无 API 时自动运行，展示hopnot功能 |
 | **冷启动** | 新知识自动创建节点，激活值 = 1.0 |
 
 ## 命令
@@ -60,7 +60,7 @@ MODEL_NAME=deepseek-chat
 → 构建 Prompt（系统指令 + 短期3轮 + 长期记忆上下文）
 → 调用 LLM API
 → 解析回复中的 <main_point> 三元组
-→ 存入Knot（整理阶段）
+→ 存入hopnot（整理阶段）
 ```
 
 ## 自定义 Prompt 模板

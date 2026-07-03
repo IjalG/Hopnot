@@ -3,7 +3,7 @@
 ## 安装
 
 ```bash
-pip install knot  # 或直接从源码安装
+pip install hopnot  # 或直接从源码安装
 pip install torch transformers sentence-transformers modelscope
 ```
 
@@ -12,7 +12,7 @@ pip install torch transformers sentence-transformers modelscope
 ### 初始化
 
 ```python
-from knot import HippocampusMemorySystem
+from hopnot import HippocampusMemorySystem
 
 # 默认使用 DummyEmbedding（随机向量，用于测试）
 system = HippocampusMemorySystem()
@@ -21,7 +21,7 @@ system = HippocampusMemorySystem()
 ### 使用 Qwen3-Embedding 模型
 
 ```python
-from knot import Qwen3Embedding, HippocampusMemorySystem, get_default_config
+from hopnot import Qwen3Embedding, HippocampusMemorySystem, get_default_config
 
 config = get_default_config()
 config.recall_threshold = 0.55
@@ -78,7 +78,7 @@ output = system.process_query(
 从 ModelScope 自动下载：https://modelscope.cn/models/Qwen/Qwen3-Embedding-0.6B
 
 ```python
-from knot import Qwen3Embedding
+from hopnot import Qwen3Embedding
 e = Qwen3Embedding(device="cpu")   # 或 "cuda"
 e.embed("人工智能")                 # → 1024 维向量
 e.embed_batch(["A", "B"])          # 批量
@@ -87,7 +87,7 @@ e.embed_batch(["A", "B"])          # 批量
 ### DummyEmbedding（测试用）
 
 ```python
-from knot import DummyEmbedding
+from hopnot import DummyEmbedding
 e = DummyEmbedding(dim=64, seed=42)
 ```
 
@@ -96,7 +96,7 @@ e = DummyEmbedding(dim=64, seed=42)
 继承 `BaseEmbedding` 即可：
 
 ```python
-from knot import BaseEmbedding
+from hopnot import BaseEmbedding
 
 class MyEmbedding(BaseEmbedding):
     @property

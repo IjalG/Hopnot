@@ -19,7 +19,7 @@
 | $\kappa$ | Triangular closure discount | 0.50 | Consolidation |
 | $L3_{\text{min}}$ | L3 floor | 0.05 | Consolidation |
 
-Full parameter table in `knot/config.py`.
+Full parameter table in `hopnot/config.py`.
 
 ## Qwen3-Embedding Adaptation
 
