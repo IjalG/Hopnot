@@ -1,4 +1,4 @@
-"""hopnot — 核心数据类型。"""
+"""Hopnot — 核心数据类型。"""
 
 from __future__ import annotations
 

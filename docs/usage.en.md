@@ -4,7 +4,7 @@
 
 ```bash
 pip install torch transformers sentence-transformers modelscope
-git clone git@github.com:IjalG/hopnot.git
+git clone git@github.com:IjalG/Hopnot.git
 cd hopnot
 ```
 

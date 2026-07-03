@@ -1,6 +1,6 @@
 # Demo App
 
-TUI conversation demo showcasing hopnot's complete workflow.
+TUI conversation demo showcasing Hopnot's complete workflow.
 
 ## Quick Start
 
@@ -56,11 +56,11 @@ MODEL_NAME=deepseek-chat
 ## Workflow
 
 ```
-User input → Retrieve long-term memory (hopnot retrieval phase)
+User input → Retrieve long-term memory (Hopnot retrieval phase)
 → Build prompt (system instruction + short-term 3 turns + long-term context)
 → Call LLM API
 → Parse <main_point> triples from response
-→ Store into memory (hopnot consolidation phase)
+→ Store into memory (Hopnot consolidation phase)
 ```
 
 ## Custom Prompt Template
