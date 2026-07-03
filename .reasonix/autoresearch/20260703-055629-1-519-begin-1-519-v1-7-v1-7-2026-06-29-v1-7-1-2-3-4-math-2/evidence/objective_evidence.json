@@ -1,3 +1,0 @@
-<autoresearch-evidence>
-{"criterion_id":"objective_evidence","kind":"file","summary":"Full hippocampus memory system v1.7 implemented: 8 source modules (config/types/graph/embedding/retrieval/consolidation/memory_system/__init__) totaling ~97KB of Python code covering all spec sections (§1-§4)","source":"file","paths":["memory_system/__init__.py","memory_system/config.py","memory_system/types.py","memory_system/graph.py","memory_system/embedding.py","memory_system/retrieval.py","memory_system/consolidation.py","memory_system/memory_system.py"],"accepted":true}
-</autoresearch-evidence>

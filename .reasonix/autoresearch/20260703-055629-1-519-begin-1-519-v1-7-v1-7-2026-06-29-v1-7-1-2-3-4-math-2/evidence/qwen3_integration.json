@@ -1,3 +1,0 @@
-<autoresearch-evidence>
-{"criterion_id":"objective_evidence","kind":"file","summary":"Qwen3-0.6B (ModelScope) integrated as frozen embedding model: Qwen3Embedding class with last-token pooling, deterministic prefix template, L2 normalization. Caches embeddings for repeated texts. Loads 596M parameter model at 1024-dim.","source":"file","accepted":true}
-</autoresearch-evidence>
