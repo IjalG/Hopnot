@@ -1,0 +1,25 @@
+# 模型缓存（从 ModelScope 自动下载）
+.model_cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+
+# 环境配置
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 演示快照
+demo/memory_snapshot_*.json

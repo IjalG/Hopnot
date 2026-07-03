@@ -1,0 +1,13 @@
+# 海马体记忆系统 TUI 演示依赖
+# 安装: pip install -r requirements.txt
+
+# LLM API 调用
+requests>=2.31.0
+
+# 嵌入模型（从 ModelScope 自动加载）
+modelscope>=1.37.0
+transformers>=4.41.0
+torch>=2.0.0
+sentence-transformers>=4.0.0
+
+# 可选: 系统路径已在 demo.py 中自动处理
