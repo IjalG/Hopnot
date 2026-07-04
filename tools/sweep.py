@@ -323,11 +323,59 @@ def parse_args():
         help="数据集索引文件，每行: knowledge.txt queries.txt 场景名",
     )
     parser.add_argument(
+        "--scan", type=str, default="",
+        help="扫描文件夹，自动配对 knowledge_xxx.txt + queries_xxx.txt",
+    )
+    parser.add_argument(
         "--quick", nargs="*",
         help="快速单次评估：key=value ...",
     )
 
     return parser.parse_args()
+
+
+def _scan_folder(folder: str) -> list[Dataset]:
+    """扫描文件夹，自动配对 knowledge_后缀.txt + queries_后缀.txt。"""
+    fdir = Path(folder)
+    if not fdir.is_dir():
+        print(f"[警告] 目录不存在: {folder}")
+        return []
+
+    # 收集所有 knowledge_*.txt 和 queries_*.txt
+    k_map: dict[str, Path] = {}  # suffix -> path
+    q_map: dict[str, Path] = {}
+
+    for f in fdir.glob("*.txt"):
+        stem = f.stem  # e.g. "knowledge_ml"
+        if stem.startswith("knowledge_") or stem.startswith("queries_"):
+            prefix, _, suffix = stem.partition("_")
+            if suffix:
+                if prefix == "knowledge":
+                    k_map[suffix] = f
+                elif prefix == "queries":
+                    q_map[suffix] = f
+
+    # 配对
+    datasets: list[Dataset] = []
+    all_suffixes = set(k_map.keys()) | set(q_map.keys())
+    for suffix in sorted(all_suffixes):
+        kpath = k_map.get(suffix)
+        qpath = q_map.get(suffix)
+        if kpath and qpath:
+            datasets.append(Dataset(
+                name=suffix,
+                knowledge=load_knowledge(kpath),
+                queries=load_queries(qpath),
+            ))
+        elif kpath and not qpath:
+            print(f"[警告] {kpath.name} 缺少对应的 queries_{suffix}.txt")
+        elif qpath and not kpath:
+            print(f"[警告] {qpath.name} 缺少对应的 knowledge_{suffix}.txt")
+
+    if not datasets:
+        print(f"[提示] {folder} 中未找到配对的 knowledge_*.txt + queries_*.txt")
+
+    return datasets
 
 
 def load_datasets_from_args(args) -> list[Dataset]:
@@ -367,6 +415,10 @@ def load_datasets_from_args(args) -> list[Dataset]:
                             knowledge=load_knowledge(kpath),
                             queries=load_queries(qpath),
                         ))
+
+    # --scan 扫描文件夹
+    if args.scan:
+        datasets.extend(_scan_folder(args.scan))
 
     return datasets
 
