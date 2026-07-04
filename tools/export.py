@@ -144,24 +144,79 @@ def export_json(system: HippocampusMemorySystem, pretty: bool = True) -> str:
 
 if __name__ == "__main__":
     import argparse
+    import os
 
     parser = argparse.ArgumentParser(description="Hopnot 记忆图导出工具")
     parser.add_argument("--format", choices=["text", "dot", "json"], default="text")
     parser.add_argument("--input", "-i", type=str, help="从快照 JSON 导入")
     parser.add_argument("--output", "-o", type=str, help="写入文件（默认输出到终端）")
+    parser.add_argument(
+        "--scan", type=str, default="",
+        help="扫描文件夹，自动导入所有 knowledge_xxx.txt + queries_xxx.txt 并导出",
+    )
+    parser.add_argument(
+        "--outdir", type=str, default="",
+        help="--scan 时输出目录（默认同 --scan 目录）",
+    )
     args = parser.parse_args()
 
-    system = build_system(args.input)
+    if args.scan:
+        scan_dir = Path(args.scan)
+        out_dir = Path(args.outdir or args.scan)
+        out_dir.mkdir(parents=True, exist_ok=True)
 
-    if args.format == "text":
-        output = export_text(system)
-    elif args.format == "dot":
-        output = export_dot(system)
-    else:
-        output = export_json(system)
+        # 用与 sweep 同样的配对逻辑
+        k_map: dict[str, Path] = {}
+        q_map: dict[str, Path] = {}
+        for f in scan_dir.glob("*.txt"):
+            stem = f.stem
+            if stem.startswith("knowledge_") or stem.startswith("queries_"):
+                prefix, _, suffix = stem.partition("_")
+                if suffix:
+                    (k_map if prefix == "knowledge" else q_map)[suffix] = f
 
-    if args.output:
-        Path(args.output).write_text(output, encoding="utf-8")
-        print(f"已保存: {args.output}")
+        all_suffixes = sorted(set(k_map.keys()) | set(q_map.keys()))
+        exported = 0
+        for suffix in all_suffixes:
+            kpath = k_map.get(suffix)
+            qpath = q_map.get(suffix)
+            if not kpath or not qpath:
+                continue
+            # 注入知识构建系统
+            system = HippocampusMemorySystem(
+                embedding=DummyEmbedding(dim=64, seed=42),
+                config=get_default_config(),
+            )
+            system.consolidate(kpath.read_text(encoding="utf-8"), query="import")
+
+            # 根据格式导出
+            if args.format == "text":
+                output = export_text(system)
+            elif args.format == "dot":
+                output = export_dot(system)
+            else:
+                output = export_json(system)
+
+            fname = out_dir / f"{suffix}.{args.format}"
+            fname.write_text(output, encoding="utf-8")
+            print(f"已导出: {fname}")
+            exported += 1
+
+        if exported == 0:
+            print(f"[提示] {scan_dir} 中未找到配对的 knowledge_*.txt + queries_*.txt")
+        else:
+            print(f"共导出 {exported} 个数据集")
     else:
-        print(output)
+        system = build_system(args.input)
+        if args.format == "text":
+            output = export_text(system)
+        elif args.format == "dot":
+            output = export_dot(system)
+        else:
+            output = export_json(system)
+
+        if args.output:
+            Path(args.output).write_text(output, encoding="utf-8")
+            print(f"已保存: {args.output}")
+        else:
+            print(output)
