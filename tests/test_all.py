@@ -10,9 +10,14 @@
 """
 
 import math
+import sys
 import time
 import unittest
+from pathlib import Path
 from typing import Any
+
+# 确保能从任意目录运行
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from hopnot.config import HippocampusConfig, get_default_config
 from hopnot.embedding import DummyEmbedding
