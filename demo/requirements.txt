@@ -11,3 +11,5 @@ torch>=2.0.0
 sentence-transformers>=4.0.0
 
 # 可选: 系统路径已在 demo.py 中自动处理
+numpy>=1.24
+scipy>=1.10

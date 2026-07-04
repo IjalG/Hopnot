@@ -1,0 +1,52 @@
+陈博文的研究方向是什么 | 大语言模型对齐
+当前课题的名称和编号 | 基于人类反馈的强化学习在医疗问答中的应用,NSFC-62476123
+课题资助方是谁 | 国家自然科学基金
+李想的年级和负责什么 | 博二,实验设计与数据收集
+王梦负责什么及文献综述完成度 | 文献综述与基线实现,80%
+RLHF的三个阶段是什么 | 监督微调,奖励建模,PPO优化
+课题使用了哪些数据集 | MedQA,HH-RLHF
+MedQA的规模和来源 | 10万条问答,医学考试题
+课题的基线模型有哪些 | GPT-4,LLaMA-3-70B
+评估指标有哪些及BLEU的缺陷 | 胜率,BLEU,ROUGE-L,BLEU不适合开放式生成
+初步结果中RLHF在MedQA上胜率多少 | 63%,对比基线GPT-4提升5%
+奖励模型准确率及改进思路 | 72%,引入对比学习
+PPO算法的全称和提出年份 | Proximal Policy Optimization,2017
+John Schulman的单位和代表作 | OpenAI,PPO算法
+Dario Amodei的代表作及核心思想 | Constitutional AI,用原则约束模型行为
+DPO论文的作者和核心贡献 | Rafailov et al.,简化了RLHF流程无需显式奖励模型
+陈博文已经读了哪两篇论文 | 论文A Training language models to follow instructions,论文B Direct Preference Optimization
+论文C的状态 | 待读
+陈博文关注的期刊有哪些 | NeurIPS,ICML,ACL
+王梦遇到了什么问题及原因 | MedQA基线复现困难,GPT-4 API版本变更
+6月24日的实验做了啥调整及结果 | 调整PPO的KL惩罚系数为0.02,奖励提升但多样性下降
+6月25日尝试了什么及训练不稳定的可能原因 | 尝试DPO方案,学习率过高
+当前学习率和建议尝试的值 | 1e-5,5e-6
+RLHF的定义 | Reinforcement Learning from Human Feedback
+奖励破解是什么 | 模型利用奖励函数漏洞得高分但不符合预期
+对比学习的代表论文及作者 | SimCSE,Gao Tianyu
+下一里程碑和截止日期 | 完成DPO对比实验,2025-07-15
+与谁合作及合作方向 | 西湖大学张教授,知识图谱增强RLHF
+张教授的专长是什么 | 医学知识图谱
+合作预期效果 | 减少事实错误
+HuggingFace账号名 | bowen_nlp
+学术助手的定时推送任务 | 每周一推送最新arXiv论文
+arXiv过滤关键词 | RLHF,LLM alignment
+陈博文对论文类型的偏好 | 优先看开源可复现论文
+课题组有哪些成员 | 陈博文,李想,王梦
+LLaMA-3-70B部署在哪里 | 本地A100集群
+A100集群的规模 | 8卡,80GB每卡
+胜率的计算方式 | 人类评估者对模型输出两两比较
+HH-RLHF的全称 | Helpful and Harmless RLHF
+RLAIF论文的核心思想 | 用AI反馈替代人类反馈
+NeurIPS 2025投稿截止了吗 | 已过
+计划投稿的下一个顶会 | ICML 2026
+课题的开源计划 | 训练后模型上传HuggingFace
+李想收集了多少医生反馈数据 | 30份
+医生反馈数据的标注者 | 协和医院内科医生
+文献综述覆盖哪些方法 | RLHF,DPO,RLAIF
+奖励模型准确率72%是否满足 | 不足,需要改进
+GPT-4的访问方式 | API
+陈博文的机构院系 | 清华大学,计算机科学与技术系
+课题时间跨度 | 2024-01至2026-12
+昨天陈博文做了什么 | 写作方法部分
+陈博文的工作时间 | 9:00-18:00
