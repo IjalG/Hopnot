@@ -1,0 +1,9 @@
+# 数据集索引文件
+# 格式: knowledge文件路径  queries文件路径  场景名
+# 路径相对于此文件所在目录，或绝对路径
+#
+# 使用: python tools/sweep.py --datasets tools/datasets.txt
+
+knowledge_ml.txt   queries_ml.txt   机器学习
+knowledge_python.txt  queries_python.txt  Python
+knowledge_历史.txt   queries_历史.txt   历史
