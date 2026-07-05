@@ -145,6 +145,7 @@ def export_json(system: HippocampusMemorySystem, pretty: bool = True) -> str:
 if __name__ == "__main__":
     import argparse
     import os
+    import subprocess
 
     parser = argparse.ArgumentParser(description="Hopnot 记忆图导出工具")
     parser.add_argument("--format", choices=["text", "dot", "json"], default="text")
@@ -158,7 +159,29 @@ if __name__ == "__main__":
         "--outdir", type=str, default="",
         help="--scan 时输出目录（默认同 --scan 目录）",
     )
+    parser.add_argument(
+        "--render", action="store_true",
+        help="导出 dot 后自动调用 graphviz 渲染为 png（需已安装 graphviz）",
+    )
     args = parser.parse_args()
+
+    def _render_dot(dot_path: Path) -> Path | None:
+        """将 .dot 文件渲染为 .png，返回 png 路径。"""
+        if args.format != "dot" or not args.render:
+            return None
+        png_path = dot_path.with_suffix(".png")
+        try:
+            subprocess.run(
+                ["dot", "-Tpng", str(dot_path), "-o", str(png_path)],
+                check=True, capture_output=True, timeout=30,
+            )
+            print(f"已渲染: {png_path}")
+            return png_path
+        except FileNotFoundError:
+            print(f"[警告] graphviz 未安装，跳过渲染。安装: sudo apt install graphviz / brew install graphviz")
+        except subprocess.CalledProcessError as e:
+            print(f"[警告] 渲染失败: {e.stderr.decode().strip()}")
+        return None
 
     if args.scan:
         scan_dir = Path(args.scan)
@@ -200,6 +223,7 @@ if __name__ == "__main__":
             fname = out_dir / f"{suffix}.{args.format}"
             fname.write_text(output, encoding="utf-8")
             print(f"已导出: {fname}")
+            _render_dot(fname)
             exported += 1
 
         if exported == 0:
@@ -216,7 +240,10 @@ if __name__ == "__main__":
             output = export_json(system)
 
         if args.output:
-            Path(args.output).write_text(output, encoding="utf-8")
-            print(f"已保存: {args.output}")
+            outpath = Path(args.output)
+            outpath.parent.mkdir(parents=True, exist_ok=True)
+            outpath.write_text(output, encoding="utf-8")
+            print(f"已保存: {outpath}")
+            _render_dot(outpath)
         else:
             print(output)
