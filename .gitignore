@@ -26,3 +26,8 @@ Thumbs.db
 
 # 演示快照
 demo/memory_snapshot_*.json
+
+# 生成的文件
+tools/graphs/
+tools/result_*
+*.png
