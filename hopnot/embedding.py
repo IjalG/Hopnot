@@ -58,27 +58,35 @@ class Qwen3Embedding(BaseEmbedding):
         import os
 
         if not model_path:
+            import glob
             cache_base = os.path.join(
                 os.path.dirname(os.path.dirname(__file__)),
                 ".model_cache", "Qwen",
             )
-            embedding_path = os.path.join(cache_base, "Qwen3-Embedding-0___6B")
-            plain_path = os.path.join(cache_base, "Qwen3-0___6B")
 
-            if os.path.isdir(embedding_path):
-                model_path = embedding_path
-            elif os.path.isdir(plain_path):
-                model_path = plain_path
-            else:
-                # 都没缓存 → 从 ModelScope 自动下载专用嵌入模型
+            # 自动查找已缓存的模型（兼容 0.6B / 0___6B 等不同命名）
+            candidates = (
+                glob.glob(os.path.join(cache_base, "Qwen3-Embedding-0*")) +
+                glob.glob(os.path.join(cache_base, "Qwen3-0*"))
+            )
+            for p in sorted(candidates, reverse=True):
+                if os.path.isdir(p):
+                    model_path = p
+                    break
+
+            if not model_path:
+                # 都没缓存 → 从 ModelScope 自动下载
                 print("正在从 ModelScope 下载 Qwen3-Embedding-0.6B...", flush=True)
                 try:
                     from modelscope import snapshot_download
                     snapshot_download("Qwen/Qwen3-Embedding-0.6B", cache_dir=os.path.dirname(cache_base))
-                    # 下载后路径
-                    model_path = os.path.join(cache_base, "Qwen3-Embedding-0___6B")
+                    # 下载后通配查找
+                    for p in glob.glob(os.path.join(cache_base, "Qwen3-Embedding-0*")):
+                        if os.path.isdir(p):
+                            model_path = p
+                            break
                 except Exception as e:
-                    raise RuntimeError(f"ModelScope 下载失败: {e}。请检查网络或用 model_path 指定本地路径。")
+                    raise RuntimeError(f"ModelScope 下载失败: {e}。请检查网络。") from e
 
         self._device = device
         self._max_length = max_length
