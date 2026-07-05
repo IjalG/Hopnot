@@ -64,15 +64,32 @@ class Qwen3Embedding(BaseEmbedding):
             )
             embedding_path = os.path.join(cache_base, "Qwen3-Embedding-0___6B")
             plain_path = os.path.join(cache_base, "Qwen3-0___6B")
+
             if os.path.isdir(embedding_path):
                 model_path = embedding_path
-            else:
+            elif os.path.isdir(plain_path):
                 model_path = plain_path
+            else:
+                # 都没缓存 → 从 ModelScope 自动下载专用嵌入模型
+                print("正在从 ModelScope 下载 Qwen3-Embedding-0.6B...", flush=True)
+                try:
+                    from modelscope import snapshot_download
+                    snapshot_download("Qwen/Qwen3-Embedding-0.6B", cache_dir=os.path.dirname(cache_base))
+                    # 下载后路径
+                    model_path = os.path.join(cache_base, "Qwen3-Embedding-0___6B")
+                except Exception as e:
+                    raise RuntimeError(f"ModelScope 下载失败: {e}。请检查网络或用 model_path 指定本地路径。")
 
         self._device = device
         self._max_length = max_length
         self._cache: dict[str, list[float]] = {}
         self._using_st = False
+
+        if not os.path.isdir(model_path):
+            raise FileNotFoundError(
+                f"模型路径不存在: {model_path}\n"
+                f"请确保模型已下载，或删除缓存目录让系统自动下载。"
+            )
 
         is_st_format = (
             os.path.isdir(os.path.join(model_path, "1_Pooling"))
