@@ -105,6 +105,8 @@ class Evaluator:
         embedder=None,
     ) -> None:
         cfg = get_default_config()
+        # 评估时不过滤低激活节点，保证召回率统计完整
+        cfg.output_threshold = 0.0
         if config_override:
             for k, v in config_override.items():
                 setattr(cfg, k, v)
@@ -199,7 +201,7 @@ def run_sweep(
         header += f"  {f'{ds.name[:4]}召回':>8}  {f'{ds.name[:4]}冷启':>8}"
     header += f"  {'平均召回':>8}  {'节点':>6}"
     print(f"数据集: {' | '.join(f'{d.name}({len(d.queries)}查询)' for d in datasets)}")
-    print(f"参数扫描: {total_combos} 个组合\n")
+    print(f"参数扫描: {total_combos} 个组合（{type(embedder).__name__}）\n")
     print(header)
     print("-" * len(header))
 
@@ -355,6 +357,10 @@ def main():
             from hopnot.embedding import Qwen3Embedding
             embedder = Qwen3Embedding(device=args.device)
             print(f"完成 ({time.time()-t0:.1f}s, device={args.device})")
+        except Exception as e:
+            print(f"\n[失败] Qwen3 加载错误: {e}")
+            print("[回退] 使用 DummyEmbedding（随机向量，结果不可靠）")
+            embedder = DummyEmbedding(dim=64, seed=42)
             print(f"完成 ({time.time()-t0:.1f}s)")
         except Exception as e:
             print(f"失败: {e}")
