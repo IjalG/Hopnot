@@ -275,7 +275,11 @@ def parse_args():
     parser.add_argument("--output", "-o", type=str, help="保存结果到 JSON 文件")
     parser.add_argument(
         "--embedding", choices=["qwen3", "dummy"], default="qwen3",
-        help="嵌入模型：qwen3（真实语义，慢但准，默认）| dummy（随机向量，快速测试）",
+        help="嵌入模型：qwen3（真实语义，默认）| dummy（快速测试）",
+    )
+    parser.add_argument(
+        "--device", type=str, default="cpu",
+        help="运行设备：cpu（默认）| cuda（需要 GPU）",
     )
     parser.add_argument("--data", nargs="+", action="append", metavar="PATH",
                         help="外部数据集：knowledge.txt queries.txt [场景名]")
@@ -349,7 +353,8 @@ def main():
         t0 = time.time()
         try:
             from hopnot.embedding import Qwen3Embedding
-            embedder = Qwen3Embedding(device="cpu")
+            embedder = Qwen3Embedding(device=args.device)
+            print(f"完成 ({time.time()-t0:.1f}s, device={args.device})")
             print(f"完成 ({time.time()-t0:.1f}s)")
         except Exception as e:
             print(f"失败: {e}")
